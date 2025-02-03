@@ -1,13 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import {
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+  createListCollection,
+} from "@chakra-ui/react";
+import logo from "./logo.svg";
+import { Counter } from "./features/counter/Counter";
+import "./App.css";
+
+const frameworks = createListCollection({
+  items: [
+    { label: "React.js", value: "react" },
+    { label: "Vue.js", value: "vue" },
+    { label: "Angular", value: "angular" },
+    { label: "Svelte", value: "svelte" },
+  ],
+});
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+        <SelectRoot collection={frameworks} size="sm" width="320px">
+          <SelectLabel>Select framework</SelectLabel>
+          <SelectTrigger>
+            <SelectValueText placeholder="Select movie" />
+          </SelectTrigger>
+          <SelectContent>
+            {frameworks.items.map((movie) => (
+              <SelectItem item={movie} key={movie.value}>
+                {movie.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectRoot>
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
